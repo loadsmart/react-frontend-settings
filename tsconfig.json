@@ -11,7 +11,10 @@
     "moduleResolution": "node",
     "downlevelIteration": true,
     "target": "es2015",
-    "jsx": "react"
+    "jsx": "react",
+    "paths": {
+      "@/*": ["*"]
+    }
   },
   "include": ["src"],
   "exclude": ["node_modules"]
