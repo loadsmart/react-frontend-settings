@@ -6,7 +6,6 @@
     "declaration": true,
     "declarationMap": true,
     "outDir": "./dist",
-    "rootDir": "./src",
     "resolveJsonModule": true,
     "moduleResolution": "node",
     "downlevelIteration": true,
@@ -16,6 +15,5 @@
       "@/*": ["*"]
     }
   },
-  "include": ["src"],
   "exclude": ["node_modules"]
 }

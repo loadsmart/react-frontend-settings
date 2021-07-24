@@ -4,10 +4,11 @@ import { renderHook } from '@testing-library/react-hooks';
 import { useSettings } from '@/hooks/useSettings';
 import { SettingsContext, SettingsProviderValue } from '@/context/context';
 
-const wrapper = (value: Partial<SettingsProviderValue>) =>
-  function Wrapper({ children }: { children: ReactNode }) {
+function wrapper(value: Partial<SettingsProviderValue>) {
+  return function Wrapper({ children }: { children: ReactNode }) {
     return <SettingsContext.Provider value={value as SettingsProviderValue}>{children}</SettingsContext.Provider>;
   };
+}
 
 describe('useSettings', () => {
   const value: SettingsProviderValue = {
