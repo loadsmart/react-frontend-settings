@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import { useQuery, UseQueryOptions } from 'react-query';
 
-import { SettingsContext, SettingsProviderValue } from 'context/context';
+import { SettingsContext, SettingsProviderValue } from '@/context/context';
 
 export type SettingsValue = Pick<SettingsProviderValue, 'settings' | 'flags'>;
 

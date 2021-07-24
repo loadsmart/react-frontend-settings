@@ -1,6 +1,6 @@
 import React, { ComponentType } from 'react';
 
-import { useSettings } from 'hooks/useSettings';
+import { useSettings } from '@/hooks/useSettings';
 
 interface Options<T> {
   flags: string[];
