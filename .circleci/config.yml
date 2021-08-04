@@ -52,7 +52,7 @@ jobs:
 
 workflows:
   version: 2
-  commit:
+  ci:
     jobs:
       - setup
       - lint: { requires: [setup] }
