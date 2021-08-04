@@ -1,0 +1,60 @@
+version: 2.1
+
+defaults: &defaults
+  working_directory: ~/project
+  docker:
+    - image: circleci/node:latest
+
+jobs:
+  setup:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache:
+          key: lock-{{ checksum "yarn.lock" }}
+      - run:
+          command: yarn
+      - save_cache:
+          key: lock-{{ checksum "yarn.lock" }}
+          paths:
+            - node_modules
+      - persist_to_workspace:
+          root: ~/project
+          paths:
+            - node_modules
+
+  lint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: yarn lint
+
+  tests:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: yarn test
+
+  commitlint:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/project
+      - run:
+          command: ~/project/scripts/commitilint_range.sh
+
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - setup
+      - lint: { requires: [setup] }
+      - tests: { requires: [setup] }
+      - commitlint: { requires: [setup] }
