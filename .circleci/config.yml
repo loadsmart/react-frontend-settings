@@ -68,7 +68,7 @@ jobs:
           command: yarn build
       - run:
           name: Publish package
-          command: yarn publish --access public
+          command: yarn publish
 
 workflows:
   version: 2
