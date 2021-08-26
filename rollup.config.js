@@ -1,5 +1,3 @@
-import path from 'path';
-
 // import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import del from 'rollup-plugin-delete';
@@ -8,7 +6,7 @@ import typescript from '@rollup/plugin-typescript';
 
 import packageJson from './package.json';
 
-const outDir = path.dirname(packageJson.main);
+const outDir = packageJson.main;
 const peerDependencies = Object.keys(packageJson.peerDependencies);
 
 const config = {
