@@ -1,3 +1,6 @@
+tag-pattern: &tag-pattern
+  only: /^\d+\.\d+\.\d+$/
+
 version: 2.1
 
 executors:
@@ -79,6 +82,15 @@ workflows:
           requires:
             - setup
       
+  release:
+    jobs:
+      - setup:
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              <<: *tag-pattern
+
       - publish:
           context: org-global
           requires:
@@ -87,4 +99,4 @@ workflows:
             branches:
               ignore: /.*/
             tags:
-              only: /^\d+\.\d+\.\d+$/
+              <<: *tag-pattern
