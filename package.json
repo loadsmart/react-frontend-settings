@@ -7,7 +7,7 @@
   "author": "Loadsmart <developer@loadsmart.com>",
   "license": "MIT",
   "files": [
-    "dist"
+    "dist/**/*"
   ],
   "repository": {
     "type": "git",
