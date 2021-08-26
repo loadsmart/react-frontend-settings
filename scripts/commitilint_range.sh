@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # based on https://github.com/wilau2/circleci-commitlint-step/blob/master/commitlint_range.sh
 
-set -euo pipefail
+set -eo pipefail
 
 if [ -z "${CIRCLE_PULL_REQUEST}" ] || [ -z "${CIRCLE_PROJECT_REPONAME}" ]; then
     exit 0;
