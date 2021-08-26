@@ -1,3 +1,6 @@
+tag-pattern: &tag-pattern
+  only: /^\d+\.\d+\.\d+$/
+
 version: 2.1
 
 executors:
@@ -50,6 +53,16 @@ jobs:
           at: ~/project
       - run:
           command: ~/project/scripts/commitilint_range.sh
+          
+  publish:
+    executor: node
+    steps:
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$npm_TOKEN" > /home/circleci/icons/.npmrc
+      - run:
+          name: Publish package
+          command: yarn publish
 
 workflows:
   version: 2
@@ -68,3 +81,13 @@ workflows:
       - commitlint:
           requires:
             - setup
+      
+      - publish:
+          context: org-global
+          requires:
+            - setup
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              <<: *tag-pattern

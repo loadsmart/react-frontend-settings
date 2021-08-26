@@ -1,6 +1,6 @@
 {
   "name": "react-frontend-settings",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Dynamic frontend settings for React applications",
   "main": "dist",
   "types": "dist/index.d.ts",
