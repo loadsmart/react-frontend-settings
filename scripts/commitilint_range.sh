@@ -3,13 +3,14 @@
 
 set -euo pipefail
 
+if [ -z "${CIRCLE_PULL_REQUEST}" ] || [ -z "${CIRCLE_PROJECT_REPONAME}" ]; then
+    exit 0;
+fi
+
 PULL_REQUEST_NUMBER=$(echo "${CIRCLE_PULL_REQUEST}" | cut -d/ -f7)
 UPSTREAM_PROJECT_USERNAME=$(echo "${CIRCLE_PULL_REQUEST}" | cut -d/ -f4)
 CURL_URL="https://api.github.com/repos/${UPSTREAM_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}/pulls/${PULL_REQUEST_NUMBER}"
 
-if [ -z "${CIRCLE_PULL_REQUEST}" ] || [ -z "${PULL_REQUEST_NUMBER}" ] || [ -z "${UPSTREAM_PROJECT_USERNAME}" ]; then
-    exit 0;
-fi
 
 PULL_REQUEST_DETAILS=$(curl "${CURL_URL}")
 FROM=$(echo "${PULL_REQUEST_DETAILS}" | jq -r .base.sha)
