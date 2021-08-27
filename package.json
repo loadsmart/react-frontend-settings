@@ -1,6 +1,6 @@
 {
-  "name": "react-frontend-settings",
-  "version": "1.0.0",
+  "name": "@loadsmart/react-frontend-settings",
+  "version": "1.0.1",
   "description": "Dynamic frontend settings for React applications",
   "main": "dist",
   "types": "dist/index.d.ts",
@@ -62,5 +62,8 @@
       "path": "./node_modules/cz-conventional-changelog"
     }
   },
-  "dependencies": {}
+  "dependencies": {},
+  "publishConfig": {
+    "access": "public"
+  }
 }
