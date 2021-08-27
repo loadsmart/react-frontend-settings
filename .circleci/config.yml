@@ -91,6 +91,7 @@ workflows:
   release:
     jobs:
       - setup:
+          context: org-global
           filters:
             branches:
               ignore: /.*/
