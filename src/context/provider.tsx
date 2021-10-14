@@ -1,19 +1,36 @@
-import React, { ReactElement, ReactNode } from 'react';
-import { useQuery, UseQueryOptions } from 'react-query';
+import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
 
-import { SettingsContext, SettingsProviderValue } from '@/context/context';
+import { SettingsContext, SettingsProviderValue } from './context';
 
 export type SettingsValue = Pick<SettingsProviderValue, 'settings' | 'flags'>;
 
 interface Props {
   children: ReactNode;
   getSettings: () => Promise<SettingsValue>;
-  options?: UseQueryOptions<SettingsValue>;
+  updateIntervalMs?: number;
 }
 
-export function SettingsProvider({ children, getSettings, options = {} }: Props): ReactElement<Props> {
-  const { data, isLoading } = useQuery('react-settings-provider', getSettings, options);
-  const settings = data?.settings ?? {};
-  const flags = data?.flags ?? {};
-  return <SettingsContext.Provider value={{ settings, flags, isLoading }}>{children}</SettingsContext.Provider>;
+export function SettingsProvider({ children, getSettings, updateIntervalMs }: Props): ReactElement<Props> {
+  const [isLoading, setLoading] = useState(false);
+  const [value, setValue] = useState<SettingsValue>({ flags: {}, settings: {} });
+
+  useEffect(() => {
+    function load() {
+      if (isLoading) return;
+      setLoading(true);
+      getSettings()
+        .then(setValue)
+        .finally(() => setLoading(false));
+    }
+
+    load();
+
+    const intervalId = window.setInterval(load, updateIntervalMs);
+
+    return function cleanup() {
+      window.clearInterval(intervalId);
+    };
+  }, []);
+
+  return <SettingsContext.Provider value={{ ...value, isLoading }}>{children}</SettingsContext.Provider>;
 }

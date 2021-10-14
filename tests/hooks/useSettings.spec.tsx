@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSettings } from '@/hooks/useSettings';
-import { SettingsContext, SettingsProviderValue } from '@/context/context';
+import { useSettings } from '../../src/hooks/useSettings';
+import { SettingsContext, SettingsProviderValue } from '../../src/context/context';
 
 function wrapper(value: Partial<SettingsProviderValue>) {
   return function Wrapper({ children }: { children: ReactNode }) {

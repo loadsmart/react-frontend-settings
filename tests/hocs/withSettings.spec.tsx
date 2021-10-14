@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { withSettings } from '@/hocs/withSettings';
-import { SettingsContext } from '@/context/context';
+import { withSettings } from '../../src/hocs/withSettings';
+import { SettingsContext, SettingsProviderValue } from '../../src/context/context';
 
 describe('withSettings', () => {
   const Component = ({ dataTestId, children }: { dataTestId?: string; children: ReactNode }) => (
@@ -10,7 +10,7 @@ describe('withSettings', () => {
   );
   const LoadingComponent = () => <div data-testid="loadingComponent" />;
 
-  const setup = (ui: ReactNode, { providerProps, ...renderOptions }) => {
+  const setup = (ui: ReactNode, { providerProps, ...renderOptions }: { providerProps: SettingsProviderValue }) => {
     render(<SettingsContext.Provider value={providerProps}>{ui}</SettingsContext.Provider>, renderOptions);
   };
 

@@ -1,5 +1,5 @@
-import { SettingsValue } from '@/context/provider';
-import { parseSettings } from '@/utils/settings';
+import { SettingsValue } from '../../src/context/provider';
+import { parseSettings } from '../../src/utils/settings';
 
 describe('parseSettings', () => {
   const settings: SettingsValue = {

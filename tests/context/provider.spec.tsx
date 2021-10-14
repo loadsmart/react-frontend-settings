@@ -1,9 +1,8 @@
 import React from 'react';
 import { act, render, waitFor } from '@testing-library/react';
-import { QueryClient, QueryClientProvider } from 'react-query';
 
-import { SettingsProvider } from '@/context/provider';
-import { SettingsContext } from '@/context/context';
+import { SettingsProvider } from '../../src/context/provider';
+import { SettingsContext, SettingsProviderValue } from '../../src/context/context';
 
 describe('SettingsProvider', () => {
   const settings = {
@@ -19,28 +18,29 @@ describe('SettingsProvider', () => {
     },
   };
 
-  const stringify = (settings) => JSON.stringify(settings, null, 2);
-  const getRendered = () => JSON.parse(document.querySelector('pre').textContent);
+  const stringify = (settings: SettingsProviderValue) => JSON.stringify(settings, null, 2);
+  const getRendered = () => JSON.parse(document.querySelector('pre')?.textContent ?? '{}');
 
   const Children = () => (
     <SettingsContext.Consumer>{(value) => <pre>{stringify(value)}</pre>}</SettingsContext.Consumer>
   );
 
   const setup = () => {
-    const queryClient = new QueryClient();
     const getSettings = jest.fn().mockResolvedValue(settings);
     render(
-      <QueryClientProvider client={queryClient}>
-        <SettingsProvider getSettings={getSettings}>
-          <Children />
-        </SettingsProvider>
-      </QueryClientProvider>,
+      <SettingsProvider getSettings={getSettings}>
+        <Children />
+      </SettingsProvider>,
     );
     return { getSettings };
   };
 
-  it('renders without crashing', () => {
+  it('renders without crashing', async () => {
     setup();
+
+    await act(async () => {
+      await new Promise((resolve) => setImmediate(resolve));
+    });
   });
 
   it('injects setting in the context', async () => {
@@ -50,6 +50,10 @@ describe('SettingsProvider', () => {
       flags: {},
       settings: {},
       isLoading: true,
+    });
+
+    await act(async () => {
+      await new Promise((resolve) => setImmediate(resolve));
     });
 
     await waitFor(() => expect(getSettings).toHaveBeenCalled());
