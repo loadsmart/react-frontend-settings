@@ -1,4 +1,4 @@
-import { SettingsValue } from '../../src/context/provider';
+import type { SettingsValue } from '../../src/context/provider';
 import { parseSettings } from '../../src/utils/settings';
 
 describe('parseSettings', () => {

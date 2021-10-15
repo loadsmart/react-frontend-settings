@@ -1,8 +1,10 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 
 import { withFeatureFlag } from '../../src/hocs/withFeatureFlag';
-import { SettingsContext, SettingsProviderValue } from '../../src/context/context';
+import type { SettingsProviderValue } from '../../src/context/context';
+import { SettingsContext } from '../../src/context/context';
 
 describe('withFeatureFlag', () => {
   const Component = () => <div data-testid="component" />;

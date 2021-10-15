@@ -1,6 +1,8 @@
-import React, { ReactElement, ReactNode, useEffect, useState } from 'react';
+import type { ReactElement, ReactNode } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import { SettingsContext, SettingsProviderValue } from './context';
+import type { SettingsProviderValue } from './context';
+import { SettingsContext } from './context';
 
 export type SettingsValue = Pick<SettingsProviderValue, 'settings' | 'flags'>;
 

@@ -2,7 +2,8 @@ import React from 'react';
 import { act, render, waitFor } from '@testing-library/react';
 
 import { SettingsProvider } from '../../src/context/provider';
-import { SettingsContext, SettingsProviderValue } from '../../src/context/context';
+import type { SettingsProviderValue } from '../../src/context/context';
+import { SettingsContext } from '../../src/context/context';
 
 describe('SettingsProvider', () => {
   const settings = {
