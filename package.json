@@ -8,7 +8,9 @@
   "module": "dist/module.js",
   "author": "Loadsmart <developer@loadsmart.com>",
   "license": "MIT",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/loadsmart/react-frontend-settings.git"
@@ -33,6 +35,7 @@
     "@typescript-eslint/parser": "^5.0.0",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^8.0.1",
+    "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",

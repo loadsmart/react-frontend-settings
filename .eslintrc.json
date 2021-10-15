@@ -42,8 +42,9 @@
       "version": "16"
     },
     "import/resolver": {
-      "node": {
-        "paths": ["./src"]
+      "alias": {
+        "map": [["~", "./"]],
+        "extensions": [".ts", ".js", ".tsx"]
       }
     }
   }
