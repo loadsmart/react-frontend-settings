@@ -58,6 +58,8 @@ jobs:
       - attach_workspace:
           at: ~/project
       - run:
+          command: yarn build
+      - run:
           command: NPM_TOKEN=$NPMJS_TOKEN yarn release
 
 workflows:
