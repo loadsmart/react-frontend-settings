@@ -1,4 +1,4 @@
-export { SettingsProvider } from '~/src/context/provider';
-export { useSettings } from '~/src/hooks/useSettings';
-export { withFeatureFlag } from '~/src/hocs/withFeatureFlag';
-export { withSettings } from '~/src/hocs/withSettings';
+export { SettingsProvider } from 'context/provider';
+export { useSettings } from 'hooks/useSettings';
+export { withFeatureFlag } from 'hocs/withFeatureFlag';
+export { withSettings } from 'hocs/withSettings';

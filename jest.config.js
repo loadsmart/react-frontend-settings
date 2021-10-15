@@ -6,6 +6,9 @@ module.exports = {
   collectCoverage: true,
   collectCoverageFrom: ['src/**/*.{ts,tsx}'],
   moduleNameMapper: {
-    '^~(.*)$': '<rootDir>$1',
+    '^context(.*)$': '<rootDir>/src/context$1',
+    '^hooks(.*)$': '<rootDir>/src/hooks$1',
+    '^hocs(.*)$': '<rootDir>/src/hocs$1',
+    '^utils(.*)$': '<rootDir>/src/utils$1',
   },
 };

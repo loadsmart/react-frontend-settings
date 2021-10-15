@@ -1,4 +1,4 @@
-import type { SettingsValue } from '~/src/context/provider';
+import type { SettingsValue } from 'context/provider';
 
 export function parseSettings(keys: string[], settings: SettingsValue): Array<boolean | null | unknown> {
   return keys.map((key) =>

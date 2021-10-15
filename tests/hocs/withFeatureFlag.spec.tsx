@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { withFeatureFlag } from '~/src/hocs/withFeatureFlag';
-import type { SettingsProviderValue } from '~/src/context/context';
-import { SettingsContext } from '~/src/context/context';
+import { withFeatureFlag } from 'hocs/withFeatureFlag';
+import type { SettingsProviderValue } from 'context/context';
+import { SettingsContext } from 'context/context';
 
 describe('withFeatureFlag', () => {
   const Component = () => <div data-testid="component" />;
