@@ -1,5 +1,5 @@
 {
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "tests/**/*"],
   "compilerOptions": {
     "target": "es2021",
     "strict": true,
@@ -12,7 +12,11 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "downlevelIteration": true
+    "downlevelIteration": true,
+    "baseUrl": ".",
+    "paths": {
+      "~*": ["./*"]
+    }
   },
   "exclude": ["node_modules"]
 }

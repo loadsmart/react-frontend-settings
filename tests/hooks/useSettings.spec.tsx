@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import { renderHook } from '@testing-library/react-hooks';
 
-import { useSettings } from '../../src/hooks/useSettings';
-import type { SettingsProviderValue } from '../../src/context/context';
-import { SettingsContext } from '../../src/context/context';
+import { useSettings } from '~/src/hooks/useSettings';
+import type { SettingsProviderValue } from '~/src/context/context';
+import { SettingsContext } from '~/src/context/context';
 
 function wrapper(value: Partial<SettingsProviderValue>) {
   return function Wrapper({ children }: { children: ReactNode }) {
