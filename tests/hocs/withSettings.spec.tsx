@@ -2,9 +2,9 @@ import type { ReactNode } from 'react';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { withSettings } from '~/src/hocs/withSettings';
-import type { SettingsProviderValue } from '~/src/context/context';
-import { SettingsContext } from '~/src/context/context';
+import { withSettings } from 'hocs/withSettings';
+import type { SettingsProviderValue } from 'context/context';
+import { SettingsContext } from 'context/context';
 
 describe('withSettings', () => {
   const Component = ({ dataTestId, children }: { dataTestId?: string; children: ReactNode }) => (
