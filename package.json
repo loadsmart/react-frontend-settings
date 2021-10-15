@@ -1,6 +1,6 @@
 {
   "name": "@loadsmart/react-frontend-settings",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Dynamic frontend settings for React applications",
   "source": "src/index.ts",
   "main": "dist/main.js",
@@ -8,7 +8,9 @@
   "module": "dist/module.js",
   "author": "Loadsmart <developer@loadsmart.com>",
   "license": "MIT",
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/loadsmart/react-frontend-settings.git"
