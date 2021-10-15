@@ -1,6 +1,6 @@
 {
   "name": "@loadsmart/react-frontend-settings",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Dynamic frontend settings for React applications",
   "source": "src/index.ts",
   "main": "dist/main.js",
