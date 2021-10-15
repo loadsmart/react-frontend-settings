@@ -42,6 +42,13 @@ function App() {
 }
 ```
 
+The provider accepts options as well:
+
+- updateIntervalMs: the interval to refetch the settings in ms, default: 10 minutes.
+- onGetSettingsFail: how to handle an error when fetching the settings, accepts two values:
+  - `keep-last`: if the request fail, keep the last known value.
+  - `reset`: if the request fail, revert to the inital (empty) value.
+
 After that you can use the hooks/hocs provided by the library:
 
 ### useSettings

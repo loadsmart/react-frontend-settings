@@ -6,23 +6,43 @@ import { SettingsContext } from './context';
 
 export type SettingsValue = Pick<SettingsProviderValue, 'settings' | 'flags'>;
 
+type SettingsProviderOptions = {
+  updateIntervalMs?: number;
+  onGetSettingsFail?: 'keep-last' | 'reset';
+};
+
 interface Props {
   children: ReactNode;
   getSettings: () => Promise<SettingsValue>;
-  updateIntervalMs?: number;
+  options?: SettingsProviderOptions;
 }
 
-export function SettingsProvider({ children, getSettings, updateIntervalMs }: Props): ReactElement<Props> {
+const tenMinInMs = 10 * 60 * 1000;
+const initialValue = { flags: {}, settings: {} };
+
+export function SettingsProvider({
+  children,
+  getSettings,
+  options: { onGetSettingsFail = 'keep-last', updateIntervalMs = tenMinInMs } = {},
+}: Props): ReactElement<Props> {
   const [isLoading, setLoading] = useState(false);
-  const [value, setValue] = useState<SettingsValue>({ flags: {}, settings: {} });
+  const [value, setValue] = useState<SettingsValue>(initialValue);
 
   useEffect(() => {
-    function load() {
+    async function load() {
       if (isLoading) return;
       setLoading(true);
-      getSettings()
-        .then(setValue)
-        .finally(() => setLoading(false));
+
+      try {
+        const newValue = await getSettings();
+        setValue(newValue);
+      } catch (err) {
+        if (onGetSettingsFail === 'reset') {
+          setValue(initialValue);
+        }
+      } finally {
+        setLoading(false);
+      }
     }
 
     load();

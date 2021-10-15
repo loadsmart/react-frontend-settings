@@ -26,10 +26,14 @@ describe('SettingsProvider', () => {
     <SettingsContext.Consumer>{(value) => <pre>{stringify(value)}</pre>}</SettingsContext.Consumer>
   );
 
-  const setup = () => {
-    const getSettings = jest.fn().mockResolvedValue(settings);
+  type Props = React.ComponentProps<typeof SettingsProvider>;
+
+  const setup = (props: Partial<Props> = {}) => {
+    const getSettings = props.getSettings || jest.fn().mockResolvedValue(settings);
+    const options = props.options || {};
+
     render(
-      <SettingsProvider getSettings={getSettings}>
+      <SettingsProvider getSettings={getSettings} options={options}>
         <Children />
       </SettingsProvider>,
     );
@@ -60,5 +64,58 @@ describe('SettingsProvider', () => {
     await waitFor(() => expect(getSettings).toHaveBeenCalled());
 
     expect(getRendered()).toStrictEqual({ ...settings, isLoading: false });
+  });
+
+  describe('onGetSettingsFail', () => {
+    beforeEach(jest.useFakeTimers);
+    afterEach(jest.useRealTimers);
+
+    it('keep-last', async () => {
+      const getSettings = jest.fn().mockResolvedValueOnce(settings).mockRejectedValueOnce({}) as Props['getSettings'];
+      const options = { onGetSettingsFail: 'keep-last' } as Props['options'];
+      setup({ getSettings, options });
+
+      expect(getRendered()).toStrictEqual({
+        flags: {},
+        settings: {},
+        isLoading: true,
+      });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(1));
+
+      expect(getRendered()).toStrictEqual({ ...settings, isLoading: false });
+
+      act(() => {
+        jest.advanceTimersByTime(10 * 60 * 1000);
+      });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(2));
+
+      expect(getRendered()).toStrictEqual({ ...settings, isLoading: false });
+    });
+
+    it('reset', async () => {
+      const getSettings = jest.fn().mockResolvedValueOnce(settings).mockRejectedValueOnce({}) as Props['getSettings'];
+      const options = { onGetSettingsFail: 'reset' } as Props['options'];
+      setup({ getSettings, options });
+
+      expect(getRendered()).toStrictEqual({
+        flags: {},
+        settings: {},
+        isLoading: true,
+      });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(1));
+
+      expect(getRendered()).toStrictEqual({ ...settings, isLoading: false });
+
+      act(() => {
+        jest.advanceTimersByTime(10 * 60 * 1000);
+      });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(2));
+
+      expect(getRendered()).toStrictEqual({ flags: {}, settings: {}, isLoading: false });
+    });
   });
 });
