@@ -3,7 +3,7 @@
 Dynamic frontend settings for React applications.
 
 This application is meant to be used together with [django-frontend-settings](https://github.com/loadsmart/django-frontend-settings)
-or some other settings provider. The most important part is that the `getSettings` function must return a Promise which will resolve
+or some other settings provider. The most important part is that the `getSettings` function must return a `Promise` which will resolve
 to a json object like:
 
 ```json
@@ -14,7 +14,7 @@ to a json object like:
   },
   "flags": {
     "ENABLE_FEATURE_AAA": true,
-    "ENABLE_FEATURE_BBB": false,
+    "ENABLE_FEATURE_BBB": false
   }
 }
 ```
@@ -51,13 +51,13 @@ function AddressInput({ ...props }) {
   const {
     values: [gmapsKey],
     isLoading,
-  } = useSettings(['settings.GOOGLE_MAPS_KEY'])
+  } = useSettings(['settings.GOOGLE_MAPS_KEY']);
 
-  const gMapsStaus = useScript(gmapsKey ? scriptUrl(gmapsKey) : '')
-  
-  if (isLoading) return null
-  
-  return <GeoInput {...props} />
+  const gMapsStaus = useScript(gmapsKey ? scriptUrl(gmapsKey) : '');
+
+  if (isLoading) return null;
+
+  return <GeoInput {...props} />;
 }
 ```
 
@@ -65,10 +65,10 @@ function AddressInput({ ...props }) {
 
 ```javascript
 function AddressInput({ gmapsKey, allowedCountries, ...props }) {
-  const country = allowedCountries?.split(',') || 'us'
-  const gMapsStaus = useScript(gmapsKey ? scriptUrl(gmapsKey) : '')
-  
-  return <GeoInput country={country} {...props} />
+  const country = allowedCountries?.split(',') || 'us';
+  const gMapsStaus = useScript(gmapsKey ? scriptUrl(gmapsKey) : '');
+
+  return <GeoInput country={country} {...props} />;
 }
 
 const options = {
@@ -77,24 +77,24 @@ const options = {
     allowedCountries: 'settings.ALLOWED_COUNTRIES',
   },
   loadingComponent: Loading,
-}
+};
 
-export default withSettings(Address, options)
+export default withSettings(AddressInput, options);
 ```
 
 ### withFeatureFlag
 
 ```javascript
 function ComponentV1() {
-  return <span>V1</span>
+  return <span>V1</span>;
 }
 
 function ComponentV2() {
-  return <span>V2</span>
+  return <span>V2</span>;
 }
 
 export default withFeatureFlag(ComponentV2, {
   flags: ['flags.ENABLE_COMPONENT_V1'],
   fallbackComponent: ComponentV1,
-})
+});
 ```
