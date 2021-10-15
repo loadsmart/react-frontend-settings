@@ -1,8 +1,9 @@
-import { SettingsValue } from '@/context/provider';
+import type { SettingsValue } from '../context/provider';
 
 export function parseSettings(keys: string[], settings: SettingsValue): Array<boolean | null | unknown> {
   return keys.map((key) =>
-    key.split('.').reduce((acc, curr) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    key.split('.').reduce<any>((acc, curr) => {
       const obj = acc === null ? settings : acc;
 
       if (!obj) return acc;

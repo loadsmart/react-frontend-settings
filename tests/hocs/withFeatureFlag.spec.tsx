@@ -1,15 +1,17 @@
-import React, { ReactNode } from 'react';
+import type { ReactNode } from 'react';
+import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-import { withFeatureFlag } from '@/hocs/withFeatureFlag';
-import { SettingsContext } from '@/context/context';
+import { withFeatureFlag } from '../../src/hocs/withFeatureFlag';
+import type { SettingsProviderValue } from '../../src/context/context';
+import { SettingsContext } from '../../src/context/context';
 
 describe('withFeatureFlag', () => {
   const Component = () => <div data-testid="component" />;
   const FallbackComponent = () => <div data-testid="fallbackComponent" />;
   const LoadingComponent = () => <div data-testid="loadingComponent" />;
 
-  const setup = (ui: ReactNode, { providerProps, ...renderOptions }) => {
+  const setup = (ui: ReactNode, { providerProps, ...renderOptions }: { providerProps: SettingsProviderValue }) => {
     render(<SettingsContext.Provider value={providerProps}>{ui}</SettingsContext.Provider>, renderOptions);
   };
 

@@ -1,6 +1,7 @@
-import React, { ComponentType } from 'react';
+import type { ComponentType } from 'react';
+import React from 'react';
 
-import { useSettings } from '@/hooks/useSettings';
+import { useSettings } from '../hooks/useSettings';
 
 interface Options {
   settingsMap: Record<string, string>;

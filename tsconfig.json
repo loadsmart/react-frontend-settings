@@ -1,6 +1,10 @@
 {
+  "include": ["src/**/*"],
   "compilerOptions": {
-    "baseUrl": "src",
+    "target": "es2021",
+    "strict": true,
+    "moduleResolution": "node",
+    "jsx": "react",
     "lib": ["es2019", "dom"],
     "esModuleInterop": true,
     "declaration": true,
@@ -8,12 +12,7 @@
     "outDir": "./dist",
     "resolveJsonModule": true,
     "moduleResolution": "node",
-    "downlevelIteration": true,
-    "target": "es2015",
-    "jsx": "react",
-    "paths": {
-      "@/*": ["*"]
-    }
+    "downlevelIteration": true
   },
   "exclude": ["node_modules"]
 }
