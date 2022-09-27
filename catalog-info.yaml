@@ -2,12 +2,12 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: react-frontend-settings
-  description: react-frontend-settings project repository
+  description: Dynamic frontend settings for React applications
   annotations:
     github.com/project-slug: loadsmart/react-frontend-settings
   tags:
     - typescript
 spec:
-  type: other
+  type: library
   lifecycle: production
-  owner: <CODE-OWNER>
+  owner: frontend
