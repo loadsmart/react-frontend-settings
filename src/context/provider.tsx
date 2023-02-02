@@ -9,6 +9,7 @@ export type SettingsValue = Pick<SettingsProviderValue, 'settings' | 'flags'>;
 type SettingsProviderOptions = {
   updateIntervalMs?: number;
   onGetSettingsFail?: 'keep-last' | 'reset';
+  autoUpdate?: boolean;
 };
 
 interface Props {
@@ -23,7 +24,7 @@ const initialValue = { flags: {}, settings: {} };
 export function SettingsProvider({
   children,
   getSettings,
-  options: { onGetSettingsFail = 'keep-last', updateIntervalMs = tenMinInMs } = {},
+  options: { onGetSettingsFail = 'keep-last', updateIntervalMs = tenMinInMs, autoUpdate = true } = {},
 }: Props): ReactElement<Props> {
   const [isLoading, setLoading] = useState(false);
   const [value, setValue] = useState<SettingsValue>(initialValue);
@@ -46,11 +47,15 @@ export function SettingsProvider({
     }
 
     load();
-
-    const intervalId = window.setInterval(load, updateIntervalMs);
+    let intervalId: number | null = null;
+    if (autoUpdate) {
+      intervalId = window.setInterval(load, updateIntervalMs);
+    }
 
     return function cleanup() {
-      window.clearInterval(intervalId);
+      if (intervalId) {
+        window.clearInterval(intervalId);
+      }
     };
   }, []);
 

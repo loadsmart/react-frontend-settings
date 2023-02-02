@@ -118,4 +118,33 @@ describe('SettingsProvider', () => {
       expect(getRendered()).toStrictEqual({ flags: {}, settings: {}, isLoading: false });
     });
   });
+
+  describe('test updateIntervalMs', () => {
+    beforeEach(jest.useFakeTimers);
+    afterEach(jest.useRealTimers);
+
+    it('calls get settings after delay', async () => {
+      const getSettings = jest.fn().mockResolvedValueOnce(settings).mockRejectedValueOnce({}) as Props['getSettings'];
+      const options = { updateIntervalMs: 10000 } as Props['options'];
+      setup({ getSettings, options });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(1));
+      act(() => {
+        jest.advanceTimersByTime(10000);
+      });
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(2));
+    });
+
+    it('does no call get settings after delay if deactivated', async () => {
+      const getSettings = jest.fn().mockResolvedValueOnce(settings).mockRejectedValueOnce({}) as Props['getSettings'];
+      const options = { updateIntervalMs: 10000, autoUpdate: false } as Props['options'];
+      setup({ getSettings, options });
+
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(1));
+      act(() => {
+        jest.advanceTimersByTime(10000);
+      });
+      await waitFor(() => expect(getSettings).toHaveBeenCalledTimes(1));
+    });
+  });
 });
